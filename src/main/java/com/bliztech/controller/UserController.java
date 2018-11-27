@@ -30,7 +30,7 @@ public class UserController {
 	@GetMapping("/user/{id}")
 	public User getUser(@PathVariable Long id) {
 		
-		return userRepository.getOne(id);
+		return userRepository.findById(id).orElse(null);
 	}
 	
 	@DeleteMapping("/user/{id}")

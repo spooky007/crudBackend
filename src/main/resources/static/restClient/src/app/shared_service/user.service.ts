@@ -12,6 +12,7 @@ export class UserService {
   private baseUrl = 'http://localhost:8080/api';
   private headers = new Headers({'Content-Type' : 'application/json'});
   private options = new RequestOptions({headers : this.headers});
+  private user: User;
 
   constructor(private _http: Http) { }
 
@@ -58,6 +59,14 @@ export class UserService {
       map((response: Response) => response.json()),
       catchError(this.errorHandler)
     );
+  }
+
+  setter(user: User) {
+    this.user = user;
+  }
+
+  getter() {
+    return this.user;
   }
 
   errorHandler(error: Response) {

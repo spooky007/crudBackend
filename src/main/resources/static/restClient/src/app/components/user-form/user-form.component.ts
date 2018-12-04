@@ -1,3 +1,6 @@
+import { UserService } from './../../shared_service/user.service';
+import { Router } from '@angular/router';
+import { User } from './../../user';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +10,35 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserFormComponent implements OnInit {
 
-  constructor() { }
+  private user: User;
+  constructor(private _userService: UserService, private _router: Router) { }
 
   ngOnInit() {
+    this.user = this._userService.getter();
+  }
+
+  processForm() {
+    if(this.user.id = undefined) {
+      this._userService.createUser(this.user).subscribe(
+        (user) => {
+          console.log(user);
+          this._router.navigate(['/']);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } else {
+      this._userService.updateUser(this.user).subscribe(
+        (user) => {
+          console.log(user);
+          this._router.navigate(['/']);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
   }
 
 }
